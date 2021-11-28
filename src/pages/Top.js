@@ -1,10 +1,11 @@
 import React from 'react'
+import Layout from '../components/Layout/Layout'
 
 export const Top = () => {
   return (
-    <div>
+    <Layout>
       トップページです
-    </div>
+    </Layout>
   )
 }
 

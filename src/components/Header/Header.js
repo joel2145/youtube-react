@@ -9,10 +9,10 @@ const Header = () => {
   return (
 
     <div className={Style.header}>
-      <div>
+      <div className={Style.item}>
         <Link to="/">VideoTube</Link>
       </div>
-      <div>
+      <div className={Style.item}>
         <form>
           <input type="text" placeholder="検索"></input>
           <button type="submit"><FontAwesomeIcon icon={faSearch} /> </button>

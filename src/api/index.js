@@ -6,7 +6,7 @@ const youtube = axios.create({
   baseURL: "https://www.googleapis.com/youtube/v3"
 })
 
-const fetchPopularData = async () => {
+export const fetchPopularData = async () => {
   return await youtube.get("/videos", {
     params: {
       part: "snippet",

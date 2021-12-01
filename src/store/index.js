@@ -7,7 +7,7 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "SET_POPULAR":
-      return { popular: action.payload.popular }
+      return { popular: action.payload }
     default:
       return state
   }
@@ -18,13 +18,11 @@ export const Store = createContext({
   setGlobalState: () => null,
 })
 
-const StoreProvider = ({ children }) => {
+export const StoreProvider = ({ children }) => {
   const [globalState, setGlobalState] = useReducer(reducer, initialState)
   return (
     <div>
-
+      <Store.Provider value={{ globalState, setGlobalState }}>{children}</Store.Provider>
     </div>
   )
 }
-
-export default Store

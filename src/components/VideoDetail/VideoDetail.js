@@ -5,7 +5,6 @@ import { fetchSelectedData } from "../../api/index";
 import { Store } from "../../store/index";
 import Layout from '../Layout/Layout';
 import { VideoGrid } from '../VideoGrid/VideoGrid';
-import { VideoGridItem } from '../VideoGridItem/VideoGridItem';
 
 export const VideoDetail = () => {
   const location = useLocation();

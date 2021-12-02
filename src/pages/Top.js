@@ -3,6 +3,9 @@ import React, { useContext, useEffect } from 'react'
 import Layout from '../components/Layout/Layout'
 import { fetchPopularData } from "../api/index"
 import { Store } from "../store/index";
+import { VideoGrid } from '../components/VideoGrid/VideoGrid';
+import { VideoGridItem } from '../components/VideoGridItem/VideoGridItem.js';
+
 
 export const Top = () => {
   // eslint-disable-next-line no-unused-vars
@@ -18,9 +21,21 @@ export const Top = () => {
   }, [])
 
   return (
-    <Layout>
-      トップページです
-    </Layout>
+    < Layout >
+      <VideoGrid>
+        {
+          globalState.popular && globalState.popular.map((popular) => {
+            return (
+              <VideoGridItem
+                id={popular.id}
+                key={popular.id}
+                title={popular.snippet.title}
+                src={popular.snippet.thumbnails.medium.url} />
+            )
+          })
+        }
+      </VideoGrid>
+    </Layout >
   )
 }
 

@@ -14,7 +14,6 @@ export const Top = () => {
   // 最初に人気動画を取得
   useEffect(() => {
     fetchPopularData().then((res) => {
-      console.log(res)
       setGlobalState({ type: "SET_POPULAR", payload: res.data.items })
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react'
 
 const initialState = {
   popular: [],
-  selected: {}
+  selected: ""
 }
 
 const reducer = (state, action) => {

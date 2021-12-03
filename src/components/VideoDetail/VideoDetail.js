@@ -19,7 +19,9 @@ export const VideoDetail = () => {
 
     // 選択された動画のidをglobalStateに追加する
     await fetchSelectedData(id).then((res) => {
-      setGlobalState({ type: "SET_SELECTED", payload: res.data.items[0].id })
+      const item = res.data.items.shift()
+      // console.log(item)
+      setGlobalState({ type: "SET_SELECTED", payload: { selected: item } })
     });
   }
 
@@ -28,9 +30,19 @@ export const VideoDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+
+  // return globalState.selected ? (
+  //   < Layout >
+  //     {/* <VideoPlay id={globalState.selected.id}></VideoPlay> */}
+  //     <p>{globalState.selected}</p>
+  //   </Layout >
+  // ) : (<span>データの取得に失敗しました。</span>)
   return (
-    < Layout >
-      <VideoPlay id={globalState.selected}></VideoPlay>
-    </Layout >
+    globalState.selected.id ? (
+      < Layout >
+        <VideoPlay id={globalState.selected.id}></VideoPlay>
+        <p>{globalState.selected.snippet.title}</p>
+      </Layout >
+    ) : <p>データの取得に失敗しました</p>
   )
 }

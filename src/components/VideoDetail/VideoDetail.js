@@ -1,11 +1,13 @@
 import React, { useEffect, useContext } from 'react'
 import { useLocation } from 'react-router-dom';
+import ReactLinkify from 'react-linkify';
 
-import { fetchSelectedData } from "../../api/index";
-import { Store } from "../../store/index";
 import Layout from '../Layout/Layout';
 import { VideoPlay } from '../VideoPlay/VideoPlay';
+import { fetchRelatedData, fetchSelectedData } from "../../api/index";
+import { Store } from "../../store/index";
 import Style from "../VideoDetail/VideoDetail.module.scss"
+import { SideList } from '../SideList/SideList';
 
 export const VideoDetail = () => {
 
@@ -23,6 +25,11 @@ export const VideoDetail = () => {
       const item = res.data.items.shift()
       setGlobalState({ type: "SET_SELECTED", payload: { selected: item } })
     });
+
+    // 選択された動画の関連動画の配列をglobalStateに追加する
+    id && await fetchRelatedData(id).then(async (res) => {
+      setGlobalState({ type: "SET_RELATED", payload: { related: res.data.items } })
+    });
   }
 
   useEffect(() => {
@@ -30,16 +37,23 @@ export const VideoDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // globalState.related.length && console.log(globalState.related)
+
   return globalState.selected ? (
     globalState.selected.id ? (
-      < Layout >
-        <div className={Style.wrap}>
-          <VideoPlay id={globalState.selected.id}></VideoPlay>
-          <h2>{globalState.selected.snippet.title}</h2>
-          <br />
-          <pre>{globalState.selected.snippet.description}</pre>
-        </div>
-      </Layout >
+      <>
+        < Layout >
+          <div className={Style.wrap}>
+            <VideoPlay id={globalState.selected.id}></VideoPlay>
+            <h2>{globalState.selected.snippet.title}</h2>
+            <br />
+            <ReactLinkify>
+              <pre>{globalState.selected.snippet.description}</pre>
+            </ReactLinkify>
+          </div>
+        </Layout >
+        <SideList related={globalState.related}></SideList>
+      </>
     ) : <p>Loading...</p>
   ) : (<p>データの取得に失敗しました</p>)
 }

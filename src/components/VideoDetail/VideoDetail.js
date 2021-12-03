@@ -5,6 +5,7 @@ import { fetchSelectedData } from "../../api/index";
 import { Store } from "../../store/index";
 import Layout from '../Layout/Layout';
 import { VideoPlay } from '../VideoPlay/VideoPlay';
+import Style from "../VideoDetail/VideoDetail.module.scss"
 
 export const VideoDetail = () => {
 
@@ -20,7 +21,6 @@ export const VideoDetail = () => {
     // 選択された動画のidをglobalStateに追加する
     await fetchSelectedData(id).then((res) => {
       const item = res.data.items.shift()
-      // console.log(item)
       setGlobalState({ type: "SET_SELECTED", payload: { selected: item } })
     });
   }
@@ -30,19 +30,16 @@ export const VideoDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-
-  // return globalState.selected ? (
-  //   < Layout >
-  //     {/* <VideoPlay id={globalState.selected.id}></VideoPlay> */}
-  //     <p>{globalState.selected}</p>
-  //   </Layout >
-  // ) : (<span>データの取得に失敗しました。</span>)
-  return (
+  return globalState.selected ? (
     globalState.selected.id ? (
       < Layout >
-        <VideoPlay id={globalState.selected.id}></VideoPlay>
-        <p>{globalState.selected.snippet.title}</p>
+        <div className={Style.wrap}>
+          <VideoPlay id={globalState.selected.id}></VideoPlay>
+          <h2>{globalState.selected.snippet.title}</h2>
+          <br />
+          <pre>{globalState.selected.snippet.description}</pre>
+        </div>
       </Layout >
-    ) : <p>データの取得に失敗しました</p>
-  )
+    ) : <p>Loading...</p>
+  ) : (<p>データの取得に失敗しました</p>)
 }

@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react'
 
 const initialState = {
   popular: [],
-  related: [],
+  related: {},
   selected: {},
 }
 

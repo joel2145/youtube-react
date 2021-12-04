@@ -4,7 +4,7 @@ import ReactLinkify from 'react-linkify';
 
 import Layout from '../Layout/Layout';
 import { VideoPlay } from '../VideoPlay/VideoPlay';
-import { fetchRelatedData, fetchSelectedData } from "../../api/index";
+import { fetchSelectedData } from "../../api/index";
 import { Store } from "../../store/index";
 import Style from "../VideoDetail/VideoDetail.module.scss"
 import { SideList } from '../SideList/SideList';
@@ -24,11 +24,6 @@ export const VideoDetail = () => {
     await fetchSelectedData(id).then((res) => {
       const item = res.data.items.shift()
       setGlobalState({ type: "SET_SELECTED", payload: { selected: item } })
-    });
-
-    // 選択された動画の関連動画の配列をglobalStateに追加する
-    id && await fetchRelatedData(id).then(async (res) => {
-      setGlobalState({ type: "SET_RELATED", payload: { related: res.data.items } })
     });
   }
 

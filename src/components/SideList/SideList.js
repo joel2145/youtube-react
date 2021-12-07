@@ -12,7 +12,16 @@ export const SideList = () => {
 
     // 選択された動画の関連動画の配列をglobalStateに追加する
     fetchRelatedData(id).then((res) => {
-      setGlobalState({ type: "SET_RELATED", payload: { related: res.data.items } })
+      // これは配列↓
+      const dataArray = res.data.items;
+      console.log(dataArray)
+      for (var i = 0; i < dataArray.length; i++) {
+        if (!dataArray[i].hasOwnProperty('snippet')) {
+          dataArray.splice(i, 1)
+          console.log(dataArray);
+        }
+      }
+      setGlobalState({ type: "SET_RELATED", payload: { related: dataArray } })
     });
   }
 
@@ -21,26 +30,23 @@ export const SideList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [globalState.selected])
 
-  globalState.related.length && console.log(globalState.related)
-
   return globalState.related.length ? (
     // <p>ddd</p>
     <>
       <p>222</p>
       {
         globalState.related && globalState.related.map((video) => {
-          console.log(video.snippet.channelTitle)
+          // console.log(video)
           return (
             // <p>oooo</p>
             <SideListItem
               id={video.id.videoId}
               key={video.id.videoId}
-              title={video.id.videoId}
-              src={"kk"} />
+              title={video.snippet.title}
+              src={video.snippet.thumbnails.standard.url} />
           )
         })
       }
     </>
   ) : (<p>kkk</p>)
-
 }

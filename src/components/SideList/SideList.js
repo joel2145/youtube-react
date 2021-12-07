@@ -14,11 +14,9 @@ export const SideList = () => {
     fetchRelatedData(id).then((res) => {
       // これは配列↓
       const dataArray = res.data.items;
-      console.log(dataArray)
       for (var i = 0; i < dataArray.length; i++) {
         if (!dataArray[i].hasOwnProperty('snippet')) {
           dataArray.splice(i, 1)
-          console.log(dataArray);
         }
       }
       setGlobalState({ type: "SET_RELATED", payload: { related: dataArray } })
@@ -31,14 +29,10 @@ export const SideList = () => {
   }, [globalState.selected])
 
   return globalState.related.length ? (
-    // <p>ddd</p>
     <>
-      <p>222</p>
       {
         globalState.related && globalState.related.map((video) => {
-          // console.log(video)
           return (
-            // <p>oooo</p>
             <SideListItem
               id={video.id.videoId}
               key={video.id.videoId}
@@ -48,5 +42,5 @@ export const SideList = () => {
         })
       }
     </>
-  ) : (<p>kkk</p>)
+  ) : (<p>データの取得に失敗しました</p>)
 }

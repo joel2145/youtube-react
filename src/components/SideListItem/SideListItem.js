@@ -4,8 +4,14 @@ import { Link } from "react-router-dom";
 import Style from "./SideListItem.module.scss"
 
 export const SideListItem = ({ id, src, title }) => {
+
+  // function doReload() {
+  //   // reloadメソッドによりページをリロード
+  //   window.location.reload();
+  // }
+  // doReload();
   return (
-    <Link className={Style.item} to={{ pathname: "watch", search: `?v=${id}` }} >
+    <Link to={{ pathname: "", search: `?v=${id}` }} className={Style.item} >
       <div>
         <img src={src} alt={title} />
         <span>{title}</span>

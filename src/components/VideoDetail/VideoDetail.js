@@ -30,9 +30,7 @@ export const VideoDetail = () => {
   useEffect(() => {
     setSelectedVideo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  // globalState.related.length && console.log(globalState.related)
+  }, [location.search])
 
   return globalState.selected ? (
     globalState.selected.id ? (

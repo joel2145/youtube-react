@@ -12,7 +12,6 @@ export const SideList = () => {
 
     // 選択された動画の関連動画の配列をglobalStateに追加する
     fetchRelatedData(id).then((res) => {
-      // これは配列↓
       const dataArray = res.data.items;
       for (var i = 0; i < dataArray.length; i++) {
         if (!dataArray[i].hasOwnProperty('snippet')) {
@@ -37,7 +36,7 @@ export const SideList = () => {
               id={video.id.videoId}
               key={video.id.videoId}
               title={video.snippet.title}
-              src={video.snippet.thumbnails.standard.url} />
+              src={video.snippet.thumbnails.medium.url} />
           )
         })
       }

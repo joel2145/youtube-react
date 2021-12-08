@@ -1,18 +1,26 @@
-import React, { useState, UseEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Link, useNavigate } from 'react-router-dom'
 
 import Style from "./Header.module.scss"
+import { Store } from "../../store/index";
 
 const Header = () => {
   const [term, setTerm] = useState("");
+  const { globalState, setGlobalState } = useContext(Store);
   const navigate = useNavigate();
 
   const handleSubmit = e => {
     e.preventDefault()
+    setGlobalState({ type: 'SET_TERM', payload: { term } })
     navigate(`./search?query=${term}`)
   }
+
+  useEffect(() => {
+    setTerm(globalState.term)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className={Style.header}>

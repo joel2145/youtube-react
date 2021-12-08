@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import { fetchRelatedData } from '../../api';
 import { Store } from '../../store';
 import { SideListItem } from '../SideListItem/SideListItem';
+import Style from "./SideList.module.scss";
 
 export const SideList = () => {
 
@@ -28,7 +29,7 @@ export const SideList = () => {
   }, [globalState.selected])
 
   return globalState.related.length ? (
-    <>
+    <div className={Style.sidenav}>
       {
         globalState.related && globalState.related.map((video) => {
           return (
@@ -40,6 +41,6 @@ export const SideList = () => {
           )
         })
       }
-    </>
+    </div>
   ) : (<p>データの取得に失敗しました</p>)
 }

@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom'
 
 import { fetchSearchData } from '../api';
 import Layout from '../components/Layout/Layout'
+import { SearchResultItem } from '../components/SearchResult/SearchResult';
 import { VideoGrid } from '../components/VideoGrid/VideoGrid';
-import { VideoGridItem } from '../components/VideoGridItem/VideoGridItem';
 import { Store } from '../store';
 
 export const Search = () => {
@@ -14,7 +14,6 @@ export const Search = () => {
   const setSearchResult = async => {
     const serchParams = new URLSearchParams(location.search)
     const query = serchParams.get("query");
-    console.log(query)
 
     fetchSearchData(query).then((res) => {
       const dataArray = res.data.items;
@@ -30,7 +29,7 @@ export const Search = () => {
   useEffect(() => {
     setSearchResult()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [globalState.selected])
 
   return globalState.searched.length ? (
     <Layout>
@@ -38,9 +37,9 @@ export const Search = () => {
         {
           globalState.searched && globalState.searched.map((searched) => {
             return (
-              <VideoGridItem
-                id={searched.id}
-                key={searched.id}
+              <SearchResultItem
+                id={searched.id.videoId}
+                key={searched.id.videoId}
                 title={searched.snippet.title}
                 src={searched.snippet.thumbnails.medium.url} />
             )

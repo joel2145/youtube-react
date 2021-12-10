@@ -29,7 +29,7 @@ export const Search = () => {
   useEffect(() => {
     setSearchResult()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [globalState.selected])
+  }, [])
 
   return globalState.searched.length ? (
     <Layout>
